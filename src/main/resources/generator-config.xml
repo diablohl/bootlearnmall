@@ -45,7 +45,7 @@
         <table tableName="bootlearn_mall_order" domainObjectName="Order"/>
         <table tableName="bootlearn_mall_order_item" domainObjectName="OrderItem"/>
         <table tableName="bootlearn_mall_product" domainObjectName="Product"/>
-        <table tableName="bootlearn_mall_user" domainObjectName="User"/>
+<!--        <table tableName="bootlearn_mall_user" domainObjectName="User"/>-->
 
     </context>
 </generatorConfiguration>
