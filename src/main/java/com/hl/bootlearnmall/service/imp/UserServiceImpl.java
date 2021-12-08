@@ -5,9 +5,12 @@ import com.hl.bootlearnmall.domain.User;
 import com.hl.bootlearnmall.exception.ImoocMallException;
 import com.hl.bootlearnmall.exception.ImoocMallExceptionEnum;
 import com.hl.bootlearnmall.service.UserService;
+import com.hl.bootlearnmall.utils.MD5Utils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.security.NoSuchAlgorithmException;
+
 @Service
 public class UserServiceImpl implements UserService {
     @Resource
@@ -26,7 +29,11 @@ public class UserServiceImpl implements UserService {
         }
         User goodUser = new User();
         goodUser.setUsername(username);
-        goodUser.setPassword(password);
+        try {
+            goodUser.setPassword(MD5Utils.getMD5Str(password));
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
         int count=userMapper.insertSelective(goodUser);
         if (count == 0) {
             throw new ImoocMallException(ImoocMallExceptionEnum.INSERT_FAILED);
