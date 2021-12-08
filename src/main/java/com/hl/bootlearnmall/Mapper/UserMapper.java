@@ -2,8 +2,9 @@ package com.hl.bootlearnmall.Mapper;
 
 import com.hl.bootlearnmall.domain.User;
 import com.hl.bootlearnmall.domain.UserExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface UserMapper {
     long countByExample(UserExample example);
@@ -27,4 +28,5 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+    User selectByName(String username);
 }
