@@ -29,4 +29,6 @@ public interface UserMapper {
 
     int updateByPrimaryKey(User record);
     User selectByName(String username);
+    //两个以上参数就要手动指定params了
+    User selectLoginCheck(@Param("username") String username,@Param("password") String password);
 }
