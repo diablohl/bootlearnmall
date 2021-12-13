@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 @Controller
 public class CategoryController {
@@ -25,12 +26,12 @@ public class CategoryController {
 
     @PostMapping("/category/add")
     @ResponseBody
-    public ApiRestResponse addCategory(HttpSession session, @RequestBody AddCategoryReq addCategoryReq){
-        //入参校验
-        if (addCategoryReq.getName() == null||addCategoryReq.getOrderNum()==null
-                ||addCategoryReq.getParentId()==null||addCategoryReq.getType()==null) {
-            return ApiRestResponse.error(ImoocMallExceptionEnum.PARA_NOT_NULL);
-        }
+    public ApiRestResponse addCategory(HttpSession session, @Valid @RequestBody AddCategoryReq addCategoryReq){
+        //入参校验  //更新：使用注解方式
+//        if (addCategoryReq.getName() == null||addCategoryReq.getOrderNum()==null
+//                ||addCategoryReq.getParentId()==null||addCategoryReq.getType()==null) {
+//            return ApiRestResponse.error(ImoocMallExceptionEnum.PARA_NOT_NULL);
+//        }
         //检验登陆状态与权限
         User currUser = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
         if (currUser == null) {
