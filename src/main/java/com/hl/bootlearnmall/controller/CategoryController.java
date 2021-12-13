@@ -7,6 +7,7 @@ import com.hl.bootlearnmall.exception.ImoocMallExceptionEnum;
 import com.hl.bootlearnmall.request.AddCategoryReq;
 import com.hl.bootlearnmall.service.CategoryService;
 import com.hl.bootlearnmall.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +25,7 @@ public class CategoryController {
     @Resource
     CategoryService categoryService;
 
+    @ApiOperation("后台添加目录")
     @PostMapping("/category/add")
     @ResponseBody
     public ApiRestResponse addCategory(HttpSession session, @Valid @RequestBody AddCategoryReq addCategoryReq){
