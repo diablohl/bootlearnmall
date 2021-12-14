@@ -27,7 +27,7 @@ public class CategoryController {
     CategoryService categoryService;
 
     @ApiOperation("后台添加目录")
-    @PostMapping("/category/add")
+    @PostMapping("admin/category/add")
     @ResponseBody
     public ApiRestResponse addCategory(HttpSession session, @Valid @RequestBody AddCategoryReq addCategoryReq){
         //入参校验  //更新：使用注解方式
@@ -54,7 +54,7 @@ public class CategoryController {
      * @param updateCategoryReq
      * @return
      */
-    @PostMapping("/category/update")
+    @PostMapping("admin/category/update")
     @ResponseBody
     public ApiRestResponse updateCategory(HttpSession session, @Valid @RequestBody UpdateCategoryReq updateCategoryReq){
 
