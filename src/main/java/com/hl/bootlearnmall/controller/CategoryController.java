@@ -1,5 +1,6 @@
 package com.hl.bootlearnmall.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.hl.bootlearnmall.common.ApiRestResponse;
 import com.hl.bootlearnmall.common.Constant;
 import com.hl.bootlearnmall.domain.User;
@@ -10,10 +11,7 @@ import com.hl.bootlearnmall.service.CategoryService;
 import com.hl.bootlearnmall.service.UserService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -78,6 +76,14 @@ public class CategoryController {
 
         categoryService.delete(id);
         return ApiRestResponse.success();
-
     }
+
+    @ApiOperation("后台目录列表")
+    @PostMapping("admin/category/list")
+    @ResponseBody
+    public ApiRestResponse listCategoryForAdmin(@RequestParam Integer pageNum, @RequestParam Integer pageSize){
+        PageInfo pageInfo = categoryService.listForAdmin(pageNum, pageSize);
+        return ApiRestResponse.success(pageInfo);
+    }
+
 }

@@ -30,4 +30,5 @@ public interface CategoryMapper {
     int updateByPrimaryKey(Category record);
 
     Category selectByName(String name);
+    List<Category> selectList();
 }

@@ -1,5 +1,7 @@
 package com.hl.bootlearnmall.service.imp;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hl.bootlearnmall.Mapper.CategoryMapper;
 import com.hl.bootlearnmall.domain.Category;
 import com.hl.bootlearnmall.exception.ImoocMallException;
@@ -11,6 +13,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
+
 @Service
 public class CategoryServiceImpl implements CategoryService {
 
@@ -57,4 +61,15 @@ public class CategoryServiceImpl implements CategoryService {
             throw new ImoocMallException(ImoocMallExceptionEnum.DELETE_FAILED);
         }
     }
+
+    @Override
+    public PageInfo listForAdmin(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize, "type,order_num");
+        List<Category> categoryList = categoryMapper.selectList();
+        PageInfo pageInfo=new PageInfo(categoryList);
+        return pageInfo;
+
+    }
+
+
 }
