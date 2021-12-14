@@ -5,6 +5,7 @@ import com.hl.bootlearnmall.common.Constant;
 import com.hl.bootlearnmall.domain.User;
 import com.hl.bootlearnmall.exception.ImoocMallExceptionEnum;
 import com.hl.bootlearnmall.request.AddCategoryReq;
+import com.hl.bootlearnmall.request.UpdateCategoryReq;
 import com.hl.bootlearnmall.service.CategoryService;
 import com.hl.bootlearnmall.service.UserService;
 import io.swagger.annotations.ApiOperation;
@@ -41,6 +42,29 @@ public class CategoryController {
         }
         if (userService.checkAdminRole(currUser)) {
             categoryService.addCategory(addCategoryReq);
+            return ApiRestResponse.success();
+        } else {
+            return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_ADMIN);
+        }
+    }
+
+    /**
+     * 更新目录接口
+     * @param session
+     * @param updateCategoryReq
+     * @return
+     */
+    @PostMapping("/category/update")
+    @ResponseBody
+    public ApiRestResponse updateCategory(HttpSession session, @Valid @RequestBody UpdateCategoryReq updateCategoryReq){
+
+        //检验登陆状态与权限
+        User currUser = (User) session.getAttribute(Constant.IMOOC_MALL_USER);
+        if (currUser == null) {
+            return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_LOGIN);
+        }
+        if (userService.checkAdminRole(currUser)) {
+            categoryService.updateCategory(updateCategoryReq);
             return ApiRestResponse.success();
         } else {
             return ApiRestResponse.error(ImoocMallExceptionEnum.NEED_ADMIN);
