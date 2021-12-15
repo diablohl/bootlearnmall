@@ -253,4 +253,10 @@
     <include refid="Base_Column_List" />
     from bootlearn_mall_category
   </select>
+  <select id="selectCategoriesByParentId" parameterType="int" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from bootlearn_mall_category
+    where parent_id = #{parentId,jdbcType=INTEGER}
+  </select>
 </mapper>

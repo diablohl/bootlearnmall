@@ -9,10 +9,13 @@ import com.hl.bootlearnmall.exception.ImoocMallExceptionEnum;
 import com.hl.bootlearnmall.request.AddCategoryReq;
 import com.hl.bootlearnmall.request.UpdateCategoryReq;
 import com.hl.bootlearnmall.service.CategoryService;
+import com.hl.bootlearnmall.vo.CategoryVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -71,5 +74,24 @@ public class CategoryServiceImpl implements CategoryService {
 
     }
 
+    @Override
+    public List<CategoryVO> listForCustomer() {
+        List<CategoryVO> categoryVOList = new ArrayList<>();
+        recursivelyFindCategories(categoryVOList, 0);
+        return categoryVOList;
+    }
+    private void recursivelyFindCategories(List<CategoryVO> categoryVOList, Integer parentId){
+        //递归获取所有子类别，并组合成为一个"目录树"
+        List<Category> categoryList = categoryMapper.selectCategoriesByParentId(parentId);
+        if (!CollectionUtils.isEmpty(categoryList)){
+            for (int i = 0; i < categoryList.size(); i++) {
+                Category category = categoryList.get(i);
+                CategoryVO categoryVO = new CategoryVO();
+                BeanUtils.copyProperties(category, categoryVO);
+                categoryVOList.add(categoryVO);
+                recursivelyFindCategories(categoryVO.getChildCategory(), categoryVO.getId());
+            }
+        }
+    }
 
 }

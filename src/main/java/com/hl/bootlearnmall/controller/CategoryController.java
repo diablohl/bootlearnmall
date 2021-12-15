@@ -9,13 +9,18 @@ import com.hl.bootlearnmall.request.AddCategoryReq;
 import com.hl.bootlearnmall.request.UpdateCategoryReq;
 import com.hl.bootlearnmall.service.CategoryService;
 import com.hl.bootlearnmall.service.UserService;
+import com.hl.bootlearnmall.vo.CategoryVO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class CategoryController {
@@ -84,6 +89,13 @@ public class CategoryController {
     public ApiRestResponse listCategoryForAdmin(@RequestParam Integer pageNum, @RequestParam Integer pageSize){
         PageInfo pageInfo = categoryService.listForAdmin(pageNum, pageSize);
         return ApiRestResponse.success(pageInfo);
+    }
+
+    @PostMapping("/category/list")
+    @ResponseBody
+    public ApiRestResponse listCategoryForCustomer(){
+        List<CategoryVO> categoryVOList = categoryService.listForCustomer();
+        return ApiRestResponse.success(categoryVOList);
     }
 
 }
