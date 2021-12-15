@@ -11,6 +11,7 @@ import com.hl.bootlearnmall.request.UpdateCategoryReq;
 import com.hl.bootlearnmall.service.CategoryService;
 import com.hl.bootlearnmall.vo.CategoryVO;
 import org.springframework.beans.BeanUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -75,6 +76,7 @@ public class CategoryServiceImpl implements CategoryService {
     }
 
     @Override
+    @Cacheable(value = "listForCustomer")
     public List<CategoryVO> listForCustomer() {
         List<CategoryVO> categoryVOList = new ArrayList<>();
         recursivelyFindCategories(categoryVOList, 0);
