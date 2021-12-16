@@ -187,7 +187,12 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
+    <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List" />
+        from bootlearn_mall_product
+        where name =#{name,jdbcType=VARCHAR}
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
     update bootlearn_mall_product
     <set>
       <if test="record.id != null">
