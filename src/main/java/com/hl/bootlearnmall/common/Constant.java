@@ -2,6 +2,7 @@ package com.hl.bootlearnmall.common;
 
 import com.hl.bootlearnmall.exception.ImoocMallException;
 import com.hl.bootlearnmall.exception.ImoocMallExceptionEnum;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,12 +13,13 @@ public class Constant {
     public static final String IMOOC_MALL_USER = "imooc_mall_user";
     public static final String SALT = "1qaz@WSX";
 
+//    @Value("${file.upload.dir}")
     public static String FILE_UPLOAD_DIR;
 
-//    @Value("${file.upload.dir}")
-//    public void setFileUploadDir(String fileUploadDir) {
-//        FILE_UPLOAD_DIR = fileUploadDir;
-//    }
+    @Value("${file.upload.dir}")
+    public void setFileUploadDir(String fileUploadDir) {
+        FILE_UPLOAD_DIR = fileUploadDir;
+    }
 //
 //    public interface ProductListOrderBy {
 //        Set<String> PRICE_ASC_DESC = Sets.newHashSet("price desc", "price asc");
