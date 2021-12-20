@@ -8,6 +8,7 @@ import com.hl.bootlearnmall.exception.ImoocMallExceptionEnum;
 import com.hl.bootlearnmall.request.AddProductReq;
 import com.hl.bootlearnmall.request.UpdateProductReq;
 import com.hl.bootlearnmall.service.ProductService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -93,4 +94,10 @@ public class ProductAdminController {
         return ApiRestResponse.success();
     }
 
+    @ApiOperation("后台批量上下架接口")
+    @PostMapping("/admin/product/batchUpdateSellStatus")
+    public ApiRestResponse batchUpdateSellStatus(@RequestParam Integer[] ids,@RequestParam Integer sellStatus) {
+        productService.batchUpdateSellStatus(ids,sellStatus);
+        return ApiRestResponse.success();
+    }
 }

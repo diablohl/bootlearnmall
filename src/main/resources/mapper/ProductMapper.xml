@@ -292,4 +292,13 @@
       update_time = #{updateTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="batchUpdateSellStatus">
+    update bootlearn_mall_product
+    set status=#{sellStatus}
+    where id in
+    <foreach collection="ids"  item="item" open="(" separator="," close=")">
+      #{item}
+    </foreach>
+
+  </update>
 </mapper>

@@ -30,4 +30,6 @@ public interface ProductMapper {
     int updateByPrimaryKey(Product record);
 
     Product selectByName(String name);
+
+    int batchUpdateSellStatus(@Param("ids") Integer[] ids, @Param("sellStatus") Integer sellStatus);
 }
