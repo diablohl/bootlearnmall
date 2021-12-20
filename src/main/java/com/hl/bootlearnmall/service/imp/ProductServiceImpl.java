@@ -1,5 +1,7 @@
 package com.hl.bootlearnmall.service.imp;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hl.bootlearnmall.Mapper.ProductMapper;
 import com.hl.bootlearnmall.domain.Product;
 import com.hl.bootlearnmall.exception.ImoocMallException;
@@ -10,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -60,4 +63,11 @@ public class ProductServiceImpl implements ProductService {
         productMapper.batchUpdateSellStatus(ids, sellStatus);
     }
 
+    @Override
+    public PageInfo listForAdmin(Integer pageNum, Integer pageSize) {
+        PageHelper.startPage(pageNum, pageSize);
+        List<Product> products = productMapper.selectListForAdmin();
+        PageInfo pageInfo = new PageInfo(products);
+        return pageInfo;
+    }
 }
