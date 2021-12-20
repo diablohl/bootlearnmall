@@ -2,10 +2,13 @@ package com.hl.bootlearnmall.controller;
 
 import com.hl.bootlearnmall.common.ApiRestResponse;
 import com.hl.bootlearnmall.common.Constant;
+import com.hl.bootlearnmall.domain.Product;
 import com.hl.bootlearnmall.exception.ImoocMallException;
 import com.hl.bootlearnmall.exception.ImoocMallExceptionEnum;
 import com.hl.bootlearnmall.request.AddProductReq;
+import com.hl.bootlearnmall.request.UpdateProductReq;
 import com.hl.bootlearnmall.service.ProductService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -74,4 +77,20 @@ public class ProductAdminController {
         }
         return effectiveURI;
     }
+
+    @PostMapping("/admin/product/update")
+    public ApiRestResponse updateProduct(@Valid @RequestBody UpdateProductReq updateProductReq){
+        Product product = new Product();
+        BeanUtils.copyProperties(updateProductReq,product);
+        productService.update(product);
+        return ApiRestResponse.success();
+    }
+
+    @PostMapping("/admin/product/delete")
+    public ApiRestResponse updateProduct(@RequestParam Integer id){
+
+        productService.delete(id);
+        return ApiRestResponse.success();
+    }
+
 }
